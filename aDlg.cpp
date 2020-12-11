@@ -9,6 +9,7 @@
 #include "aDlg.h"
 #include "afxdialogex.h"
 #include <opencv2/opencv.hpp>;
+#include <opencv2\imgproc\types_c.h>;
 using namespace cv;
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -18,7 +19,7 @@ using namespace cv;
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 CImage image;
 CImage img1;
-Mat img;
+Mat img,im2;
 Mat scaledImage;
 RECT pic_rect;
 class CAboutDlg : public CDialogEx
@@ -210,7 +211,8 @@ void CaDlg::OnBnClickedButton1()
 	long height = pic_rect.bottom;
 
 	//改变图片大小适应picture控件
-	resize(img, scaledImage, Size(width, height));
+	cvtColor(img, im2, CV_BGR2GRAY);
+	resize(im2, scaledImage, Size(width, height));
 
 	//Mat转换为CImage
 	if (!scaledImage.empty())
