@@ -19,7 +19,7 @@ using namespace cv;
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 CImage image;
 CImage img1;
-Mat img,im2;
+Mat img,im2,im3;
 Mat scaledImage;
 RECT pic_rect;
 class CAboutDlg : public CDialogEx
@@ -212,7 +212,8 @@ void CaDlg::OnBnClickedButton1()
 
 	//改变图片大小适应picture控件
 	cvtColor(img, im2, CV_BGR2GRAY);
-	resize(im2, scaledImage, Size(width, height));
+	adaptiveThreshold(im2, im3, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 7, 10);
+	resize(im3, scaledImage, Size(width, height));
 
 	//Mat转换为CImage
 	if (!scaledImage.empty())
